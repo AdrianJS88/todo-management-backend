@@ -4,6 +4,8 @@ import net.javaguides.todo.dto.AppointmentDto;
 import net.javaguides.todo.entity.Appointment;
 import net.javaguides.todo.entity.Product;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface AppointmentService {
@@ -25,5 +27,5 @@ public interface AppointmentService {
     List<Appointment> searchAppointments(String query);
 
 
-
+    boolean existsAppointmentByDate(LocalDateTime appointmentDto);
 }

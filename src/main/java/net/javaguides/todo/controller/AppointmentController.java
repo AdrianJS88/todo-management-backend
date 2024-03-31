@@ -3,13 +3,14 @@ package net.javaguides.todo.controller;
 import lombok.AllArgsConstructor;
 import net.javaguides.todo.dto.AppointmentDto;
 import net.javaguides.todo.entity.Appointment;
-import net.javaguides.todo.repository.AppointmentRepository;
 import net.javaguides.todo.service.AppointmentService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -18,9 +19,19 @@ import java.util.List;
 @AllArgsConstructor
 public class AppointmentController {
 
-    private AppointmentRepository appointmentRepository;
-
     private AppointmentService appointmentService;
+
+
+
+
+    @GetMapping("/exists")
+    public ResponseEntity<Boolean> checkAppointmentExists(@RequestParam("query") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime date) {
+        boolean exists = appointmentService.existsAppointmentByDate(date);
+        return ResponseEntity.ok(exists);
+    }
+
+
+
 
 
     @GetMapping("/search")

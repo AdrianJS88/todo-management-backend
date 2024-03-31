@@ -9,7 +9,10 @@ import net.javaguides.todo.service.AppointmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,13 +26,18 @@ public class AppointmentServiceImpl implements AppointmentService {
     private ModelMapper modelMapper;
 
 
+    @Override
+    public boolean existsAppointmentByDate(LocalDateTime date_appointment) {
+        return appointmentRepository.existsByDateAppointment(date_appointment);
+    }
+
+
 
     @Override
     public List<Appointment> searchAppointments(String query) {
         List<Appointment> appointments = appointmentRepository.searchAppointments(query);
         return appointments;
     }
-
 
 
 

@@ -1,13 +1,12 @@
 package net.javaguides.todo.repository;
 
 import net.javaguides.todo.entity.Appointment;
-import net.javaguides.todo.entity.Product;
-import net.javaguides.todo.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository< Appointment , Long> {
 
@@ -16,10 +15,11 @@ public interface AppointmentRepository extends JpaRepository< Appointment , Long
             "Or p.appointment_u_name LIKE CONCAT('%', :query, '%')")
     List<Appointment> searchAppointments(String query);
 
-
-
-
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Appointment a WHERE a.date_appointment = :date_appointment")
+    boolean existsByDateAppointment(@Param("date_appointment") LocalDateTime date_appointment);
 }
+
+
 
 
 

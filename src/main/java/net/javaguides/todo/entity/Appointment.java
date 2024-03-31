@@ -1,5 +1,6 @@
 package net.javaguides.todo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class Appointment {
 
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm", timezone = "Europe/Bucharest")
     private LocalDateTime date_appointment;
 
     @Column(nullable = false)
